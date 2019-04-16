@@ -1,0 +1,24 @@
+<div class="container">
+  <br>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+
+        <th scope="col"># Ticket</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of disponibles">
+        <!-- <th scope="row">1</th> -->
+        <td>{{ticket[2]}}</td>
+        <td>{{ticket[1]}}</td>
+        <td><button type="button" class="btn btn-primary reservar" (click)="reservar(ticket[2])">Reservar</button>
+          <button type="button" class="btn btn-success" (click)="comprar(ticket[2])">Comprar</button>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
