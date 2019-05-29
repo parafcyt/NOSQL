@@ -1,0 +1,31 @@
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="../assets/img/indice.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
+    Crypto Mongo
+  </a>
+  <span class="navbar-text">
+    <button type="button" class="btn btn-warning boton" (click)="actualizar()">Actualizar</button>
+  </span>
+</nav>
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Ranking</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Símbolo</th>
+        <th scope="col">Precio USD</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let moneda of monedas">
+        <th scope="row">{{moneda.rank}}</th>
+        <td>{{moneda.name}}</td>
+        <td>{{moneda.symbol}}</td>
+        <td>{{moneda.price_usd}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
