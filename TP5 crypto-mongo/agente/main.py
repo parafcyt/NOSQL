@@ -4,15 +4,15 @@ import time
 
 API_URL = "https://api.coinmarketcap.com/v1/ticker"
 
+#CONEXION CON MONGODB
+def get_db_conexion(url):
 
-def get_db_connection(uri):
+    cliente = pymongo.MongoClient(url)
 
-    client = pymongo.MongoClient(uri)
-
-    return client.cryptoapp
+    return cliente.cryptoapp #nombre de la base de datos: cryptoapp
 
 
-def get_cryptocurrencies_from_api():
+def get_crypto_desde_api():
 
     r = requests.get(API_URL)
 
@@ -22,7 +22,13 @@ def get_cryptocurrencies_from_api():
 
         return result
 
-    raise Exception('Api error')
+    raise Exception('Api de crypto error')
+
+#guardar las monedas en mongo
+def guardar_ticker(conexion, ticker):
+
+    coleccion= conexion.tickers #traigo la coleccion tickers
+    coleccion.insert_one(ticker)
 
 
 def first_element(elements):
@@ -41,20 +47,40 @@ def get_ticket_hash(ticket_data):
     #sorted()
 
 
-if __name__ == "__main__":
+
+
+
+
+
+
+if __name__ == "__main__": #si este es main lo ejecuta
 
     while True:
 
-        print("Guardando info crypto mongo")
+        print("Guardando info de crypto mongo on " + time.strftime("%c"))
 
-        db = get_db_connection('mongodb://localhost:27017/')
+        conexion = get_db_conexion('mongodb://mongo-crypto:27017/') #paso ruta de la bbdd del contenedor
 
-        tickers = get_cryptocurrencies_from_api()
+        conexion.tickers.delete_many({}) #vacío la coleccion tickers
+        
+
+        tickers = get_crypto_desde_api() #traigo el listado de monedas
 
         for ticker in tickers:
 
-            #save_ticker(db, ticker)
-            pass
+            guardar_ticker(conexion, ticker)
 
         time.sleep(240)
 
+
+#LEVANTAR BBDD DE MONGO
+# docker run -d --name=mongo-crypto mongo
+
+
+#CONSTRUIR IMAGEN
+
+#docker build -t="cryptomongo-agente" .
+
+#MONTAR IMAGEN
+
+#docker run -it --link=mongo-crypto:mongo-crypto cryptomongo-agente

@@ -1,17 +1,20 @@
 import pymongo
 from flask import Flask, jsonify, request
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+cors=CORS(app,resources={r"/*": {"origins": "*"}})
 
 
-def get_db_connection(uri):
+def get_db_conexion(url):
 
-    client = pymongo.MongoClient(uri)
+    cliente = pymongo.MongoClient(url)
 
-    return client.cryptoapp
+    return cliente.cryptoapp #nombre de la base de datos: cryptoapp
 
 
-db = get_db_connection('mongodb://localhost:27017/')
+db = get_db_conexion('mongodb://mongo-crypto:27017/')
 
 
 def get_documents():
@@ -49,7 +52,8 @@ def remove_currency():
 @app.route('/')
 def index():
 
-    return jsonify({'name': 'CryptoApp API'})
+    #return jsonify({'name': 'CryptoApp API'})
+    return 'CryptoApp API'
 
 
 @app.route('/top20', methods=['GET'])
@@ -58,6 +62,8 @@ def top20():
     return jsonify(get_top20())
 
 
+#CONSTRUIR IMAGEN
+#docker build -t="cryptomongo.api" .
 
-
-
+#MONTAR CONTENEDOR
+#docker run -it --link=mongo-crypto:mongo-crypto -p 5000:5000 cryptomongo-api
