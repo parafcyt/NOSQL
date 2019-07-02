@@ -62,21 +62,27 @@ def cargar():
 #cargar nuevo
 @app.route('/cargar',methods = ['POST'])
 def nuevo():
-    request_json = request.get_json()
-    print(request_json)
+    idjson = request.get_json()
+    r = requests.get(API_URL1+str(idjson['id'])+API_URL2)
+    db.pelis.insert_one(r.json())
 
     return 'prueba'
 #modificar
 @app.route('/modificar',methods = ['UPDATE'])
 def modificar():
-    request_json = request.get_json()
-    print(request_json)
+    peliactualizada =request.get_json()
+    db.pelis.replace_one({'id': peliactualizada['id']},peliactualizada)
+    print(peliactualizada)
+    return 'modificó'
 
 #eliminar
 @app.route('/eliminar',methods = ['DELETE'])
 def eliminar():
-    request_json = request.get_json()
-    print(request_json)
+    idjson = request.get_json()
+    db.pelis.delete_one({'id': idjson['id']})
+    
+    print(idjson['id'])
+    return 'eliminó'
 
 
 
@@ -84,6 +90,6 @@ if __name__ == '__main__':
     app.run(host='localhost', port='3000', debug=False)
 
 
-#export FLASK_APP=main.py
+#export FLASK_APP=main.pypy
 #flask run
 
