@@ -14,6 +14,8 @@ ruta_imagen='https://image.tmdb.org/t/p/w500'
 
 API_URL = 'https://api.themoviedb.org/3/search/movie?api_key=dfe3234b957f307e6e0db40c7052c2db&language=es&query='
 
+API_URL1 = 'https://api.themoviedb.org/3/movie/'
+API_URL2 = '?api_key=dfe3234b957f307e6e0db40c7052c2db&language=es'
 
 def get_db_conexion(url):
 
@@ -21,10 +23,11 @@ def get_db_conexion(url):
 
     print('conectado a mongo')
 
-    return cliente.cryptoapp #nombre de la base de datos: peliculas
+    return cliente.peliapp #nombre de la base de datos: peliculas
 
 
-db = get_db_conexion('mongodb://mongo-crypto:27017/')
+db = get_db_conexion('mongodb://localhost:27017/')
+
 
 print('mona')
 
@@ -32,39 +35,55 @@ print('mona')
 
 @app.route('/')
 def index():
+    muestro=[]
+    for peli in db.pelis.find():
+        peli.pop('_id')
+        muestro.append(peli)
+    return jsonify(muestro)
 
-    return 'alexis'
-
-@app.route('/lista')
+@app.route('/iniciarbd')
 def cargar():
 
-    res = db.tickers.find().limit(1)
-    print(res)
-
+    db.pelis.delete_many({})
     #lista=['Capitán+América','Iron+Man','El+increíble+Hulk','Iron+Man+2','Thor','Los+Vengadores']
-    lista=['Capitán+América','Iron+Man']
+    lista=['1771', '1726', '1724', '10138', '10195','24428']
     
+    respuestas =[]
+
     for peli in lista: 
-        r = requests.get(API_URL+peli)
+        r = requests.get(API_URL1+peli+API_URL2)
+        respuestas.append(r.json())
 
-        #guardar_peli(r.json())
-        db.peliculas_coleccion.insert_one(r.json())
-        #print(r.json())
-
+    for res in respuestas:
+        db.pelis.insert_one(res)
 
     return 'bbdd inicializada'
 
-        #raise Exception('Api de pelis error')
+#cargar nuevo
+@app.route('/cargar',methods = ['POST'])
+def nuevo():
+    request_json = request.get_json()
+    print(request_json)
 
-def guardar_peli(peli):
+    return 'prueba'
+#modificar
+@app.route('/modificar',methods = ['UPDATE'])
+def modificar():
+    request_json = request.get_json()
+    print(request_json)
 
-    coleccion= db.peliculas #traigo la coleccion peliculas
-    coleccion.insert_one(peli)
+#eliminar
+@app.route('/eliminar',methods = ['DELETE'])
+def eliminar():
+    request_json = request.get_json()
+    print(request_json)
+
+
 
 if __name__ == '__main__':
     app.run(host='localhost', port='3000', debug=False)
 
 
-#export FLASK_APP=app.py
+#export FLASK_APP=main.py
 #flask run
 

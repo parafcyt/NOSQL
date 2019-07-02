@@ -34,8 +34,6 @@ def index():
 
     #return jsonify({'name': 'CryptoApp API'})
 
-
-
     return jsonify(resultados)
 
 
@@ -48,7 +46,3 @@ def index():
 #MONTAR CONTENEDOR
 #docker run -it --link=mongo-crypto:mongo-crypto -p 5000:5000 cryptomongo-api
 
-#PARA NO TENER QUE REINICIAR CONTENEDOR
-#export FLASK_APP=main.py
-#export FLASK_DEBUG=1
-#flask run
