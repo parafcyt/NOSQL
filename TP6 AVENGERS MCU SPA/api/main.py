@@ -60,10 +60,9 @@ def cargar():
     return 'bbdd inicializada'
 
 #cargar nuevo
-@app.route('/cargar',methods = ['POST'])
-def nuevo():
-    idjson = request.get_json()
-    r = requests.get(API_URL1+str(idjson['id'])+API_URL2)
+@app.route('/cargar/<id>',methods = ['POST'])
+def nuevo(id):
+    r = requests.get(API_URL1+id+API_URL2)
     db.pelis.insert_one(r.json())
 
     return 'prueba'
@@ -76,12 +75,9 @@ def modificar():
     return 'modificó'
 
 #eliminar
-@app.route('/eliminar',methods = ['DELETE'])
-def eliminar():
-    idjson = request.get_json()
-    db.pelis.delete_one({'id': idjson['id']})
-    
-    print(idjson['id'])
+@app.route('/eliminar/<id>',methods = ['DELETE'])
+def eliminar(id):
+    db.pelis.delete_one({'id': id})
     return 'eliminó'
 
 
