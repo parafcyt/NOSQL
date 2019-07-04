@@ -1,3 +1,5 @@
-<p>
-  editar works!
-</p>
+<br>
+<div class="container card-columns">
+  <app-tarjeta-editar *ngFor="let pelicula of peliculas" [pelicula]="pelicula"></app-tarjeta-editar>
+  <!-- [pelicula] como se referencia en componente tarjeta -->
+</div>

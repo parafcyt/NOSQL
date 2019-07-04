@@ -14,6 +14,7 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
 import { TarjetaComponent } from './componentes/tarjeta/tarjeta.component';
 import { EditarComponent } from './componentes/editar/editar.component';
 import { AgregarComponent } from './componentes/agregar/agregar.component';
+import { TarjetaEditarComponent } from './componentes/tarjeta-editar/tarjeta-editar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AgregarComponent } from './componentes/agregar/agregar.component';
     InicioComponent,
     TarjetaComponent,
     EditarComponent,
-    AgregarComponent
+    AgregarComponent,
+    TarjetaEditarComponent
   ],
   imports: [
     BrowserModule,

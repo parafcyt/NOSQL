@@ -1,3 +1,5 @@
-<p>
-  inicio works!
-</p>
+<br>
+<div class="container card-columns">
+  <app-tarjeta *ngFor="let pelicula of peliculas" [pelicula]="pelicula"></app-tarjeta>
+  <!-- [pelicula] como se referencia en componente tarjeta -->
+</div>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+//IMPORTO SERVICIO
+import { PeliculasService } from '../../servicios/peliculas.service';
+
 @Component({
   selector: 'app-editar',
   templateUrl: './editar.component.html',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditarComponent implements OnInit {
 
-  constructor() { }
+  peliculas;
+  constructor(private peliculaService: PeliculasService) { }
 
   ngOnInit() {
+    this.peliculaService.traerPeliculas().subscribe(res=>{
+      this.peliculas=res;
+    });
   }
 
 }

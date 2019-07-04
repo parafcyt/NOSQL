@@ -86,6 +86,6 @@ if __name__ == '__main__':
     app.run(host='localhost', port='3000', debug=False)
 
 
-#export FLASK_APP=main.pypy
+#export FLASK_APP=main.py
 #flask run
 

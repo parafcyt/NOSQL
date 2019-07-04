@@ -7,7 +7,8 @@ import { EditarComponent } from './componentes/editar/editar.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 
 const routes: Routes = [
-  {path:'', component: InicioComponent},
+  {path: '', redirectTo:'/inicio',pathMatch:'full'}, //cuando entra direcciona a /inicio
+  {path:'inicio', component: InicioComponent},
   {path:'agregar', component: AgregarComponent},
   {path:'editar', component: EditarComponent}
 ];

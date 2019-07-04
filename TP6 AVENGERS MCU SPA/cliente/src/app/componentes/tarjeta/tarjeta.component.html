@@ -1,3 +1,15 @@
-<p>
-  tarjeta works!
-</p>
+<div class="card" style="width: 18rem;">
+    <img src={{rutaPoster}} class="card-img-top" alt="Imagen">
+    <div class="card-body">
+      <h5 class="card-title">{{pelicula.title}}</h5>
+      <p class="card-text">{{pelicula.overview.substring(0,200)}}...</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Lanzamiento: {{pelicula.release_date}}</li>
+      <li class="list-group-item">Duración: {{pelicula.runtime}} minutos</li>
+      <li class="list-group-item">Recaudación: u$s {{pelicula.revenue}}</li>
+    </ul>
+    <div class="card-body pagina">
+      <a href={{pelicula.homepage}} target="_blank" class="card-link">Página Oficial</a>
+    </div>
+  </div>
