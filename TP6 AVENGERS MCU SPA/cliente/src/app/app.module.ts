@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 //SERVICIO
@@ -16,6 +17,11 @@ import { EditarComponent } from './componentes/editar/editar.component';
 import { AgregarComponent } from './componentes/agregar/agregar.component';
 import { TarjetaEditarComponent } from './componentes/tarjeta-editar/tarjeta-editar.component';
 
+//SWEETALERT
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { FormularioComponent } from './componentes/formulario/formulario.component';
+import { TarjetaAgregarComponent } from './componentes/tarjeta-agregar/tarjeta-agregar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,12 +30,17 @@ import { TarjetaEditarComponent } from './componentes/tarjeta-editar/tarjeta-edi
     TarjetaComponent,
     EditarComponent,
     AgregarComponent,
-    TarjetaEditarComponent
+    TarjetaEditarComponent,
+    FormularioComponent,
+    TarjetaAgregarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SweetAlert2Module,
+    ReactiveFormsModule, 
+    FormsModule
   ],
   providers: [PeliculasService],
   bootstrap: [AppComponent]

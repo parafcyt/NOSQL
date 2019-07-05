@@ -1,3 +1,17 @@
-<p>
-  agregar works!
-</p>
+<div class="container">
+  <br><br>
+  <form [formGroup]="formGroup">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="ej. Capitán América" formControlName="busqueda" (keyup.enter)="buscar()">
+      <div class="input-group-append">
+        <button type="button" class="btn btn-outline-primary" (click)="buscar()">Buscar</button>
+      </div>
+    </div>
+
+  </form>
+  <br>
+
+  <div class="card-columns d-flex flex-wrap" *ngIf="peliculasTraidas">
+    <app-tarjeta-agregar *ngFor="let pelicula of peliculasTraidas.results" [pelicula]="pelicula"></app-tarjeta-agregar>
+  </div>
+</div>

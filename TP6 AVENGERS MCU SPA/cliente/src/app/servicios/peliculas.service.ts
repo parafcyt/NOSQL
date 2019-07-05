@@ -33,5 +33,10 @@ export class PeliculasService {
     return this.http.get(this.apiBusqueda+busqueda);
   }
 
+  //traigo pelicula x id
+  traerPelixId(id:string){
+    return this.http.get(this.api+'buscar/'+id);
+  }
+
 }
 

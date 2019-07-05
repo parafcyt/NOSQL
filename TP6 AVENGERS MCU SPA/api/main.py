@@ -57,7 +57,7 @@ def cargar():
     for res in respuestas:
         db.pelis.insert_one(res)
 
-    return 'bbdd inicializada'
+    return jsonify('bbdd inicializada')
 
 #cargar nuevo
 @app.route('/cargar/<id>',methods = ['POST'])
@@ -65,25 +65,30 @@ def nuevo(id):
     r = requests.get(API_URL1+id+API_URL2)
     db.pelis.insert_one(r.json())
 
-    return 'prueba'
+    return jsonify('prueba')
+
 #modificar
 @app.route('/modificar',methods = ['UPDATE'])
 def modificar():
     peliactualizada =request.get_json()
     db.pelis.replace_one({'id': peliactualizada['id']},peliactualizada)
     print(peliactualizada)
-    return 'modificó'
+    return jsonify('modificó')
 
 #eliminar
 @app.route('/eliminar/<id>',methods = ['DELETE'])
 def eliminar(id):
-    db.pelis.delete_one({'id': id})
-    return 'eliminó'
-
-
+    db.pelis.delete_one({'id': int(id)})
+    return jsonify('eliminó')
 
 if __name__ == '__main__':
     app.run(host='localhost', port='3000', debug=False)
+
+@app.route('/buscar/<idpeli>',methods=['GET'])
+def buscar(idpeli):
+    for peli in db.pelis.find({'id':int(idpeli)}):
+        peli.pop('_id')
+    return jsonify(peli)
 
 
 #export FLASK_APP=main.py
