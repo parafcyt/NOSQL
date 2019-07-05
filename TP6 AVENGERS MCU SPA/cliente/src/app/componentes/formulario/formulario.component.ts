@@ -64,7 +64,7 @@ export class FormularioComponent implements OnInit {
 
       //QUE VUELVA A EDITAR
       this.router.navigateByUrl('/editar');
-    })
+    });
 
     
   }

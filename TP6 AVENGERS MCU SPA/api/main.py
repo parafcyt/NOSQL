@@ -68,7 +68,7 @@ def nuevo(id):
     return jsonify('prueba')
 
 #modificar
-@app.route('/modificar',methods = ['UPDATE'])
+@app.route('/modificar',methods = ['PUT'])
 def modificar():
     peliactualizada =request.get_json()
     db.pelis.replace_one({'id': peliactualizada['id']},peliactualizada)
